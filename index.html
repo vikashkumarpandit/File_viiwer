@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Doc Viewer">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Doc Viewer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="home">
+  <header class="top">
+    <div class="logo" aria-hidden="true"><span></span></div>
+    <div>
+      <h1>Doc Viewer</h1>
+      <p class="sub">PowerPoint · PDF · Word · Excel · Text · Images — works offline</p>
+    </div>
+  </header>
+
+  <section class="actions">
+    <button id="btnAdd" class="btn primary" type="button">+ Add files</button>
+    <button id="btnFolder" class="btn" type="button">📁 Add a whole folder</button>
+    <button id="btnRescan" class="btn" type="button" hidden>🔄 Rescan folder</button>
+    <button id="btnInstall" class="btn accent" type="button" hidden>📲 Install app on home screen</button>
+  </section>
+
+  <div id="filters" class="filters" hidden></div>
+  <input id="search" class="search" type="search" placeholder="🔍 Search by name" autocomplete="off" hidden>
+
+  <ul id="list" class="list"></ul>
+
+  <section id="empty" class="empty" hidden>
+    <div class="big">📂</div>
+    <h2>No files yet</h2>
+    <p>Tap <b>+ Add files</b> and pick one or more files from your phone, or tap <b>Add a whole folder</b> (for example Download or Documents) to add everything in it at once.</p>
+    <p>Added files stay inside this app. Tap a file once to open it.</p>
+  </section>
+
+  <p id="hint" class="hint" hidden></p>
+</main>
+
+<div id="viewer" hidden>
+  <div id="stage"></div>
+  <div id="reader" hidden></div>
+
+  <div id="loading" hidden><div class="spin"></div><p id="loadMsg">Opening…</p></div>
+
+  <div id="vErr" hidden>
+    <div class="errbox">
+      <div class="big">⚠️</div>
+      <p id="vErrMsg"></p>
+      <pre id="vErrDetail"></pre>
+      <button id="vErrBack" class="btn primary" type="button">Go back</button>
+    </div>
+  </div>
+
+  <button id="vClose" class="vbtn chrome" type="button" aria-label="Close">✕</button>
+  <button id="vMenu" class="vbtn chrome" type="button" aria-label="Menu">☰</button>
+  <div id="vCount" class="chrome"></div>
+  <div id="vBar"><i></i></div>
+
+  <div id="vSheet" class="chrome" hidden>
+    <div class="row" id="rowSlider">
+      <span id="vSliderLbl">1 / 1</span>
+      <input id="vSlider" type="range" min="1" max="1" value="1">
+    </div>
+    <div class="row btns">
+      <button id="vZoomOut" class="btn" type="button">− Zoom</button>
+      <button id="vZoomIn" class="btn" type="button">+ Zoom</button>
+      <button id="vMode" class="btn" type="button" hidden>Page mode</button>
+      <button id="vAuto" class="btn" type="button">▶ Auto-play</button>
+      <button id="vFull" class="btn" type="button">⛶ Full screen</button>
+      <button id="vHome" class="btn" type="button">☰ File list</button>
+    </div>
+  </div>
+
+  <div id="vEnd" class="chrome" hidden>
+    <div class="endbox">
+      <div class="big">🏁</div>
+      <p>End of document</p>
+      <div class="row btns">
+        <button id="vAgain" class="btn primary" type="button">↺ Start again</button>
+        <button id="vBack" class="btn" type="button">Back to list</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="vHint" hidden>Tap → next page<br>Left edge / swipe → previous</div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<input id="fileInput" type="file" multiple hidden
+  accept=".pptx,.ppt,.pps,.ppsx,.pptm,.pdf,.docx,.xlsx,.csv,.txt,.md,.json,.log,.png,.jpg,.jpeg,.gif,.webp,.bmp,.svg,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.presentationml.slideshow,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/plain,text/csv,image/*">
+<input id="dirInput" type="file" webkitdirectory multiple hidden>
+
+<script src="jszip.min.js"></script>
+<script src="pptx.js"></script>
+<script src="ppt-legacy.js"></script>
+<script src="readers.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
